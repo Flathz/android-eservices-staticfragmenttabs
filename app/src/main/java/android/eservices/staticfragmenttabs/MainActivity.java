@@ -12,7 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements CounterInterface {
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
@@ -36,7 +36,9 @@ public class MainActivity extends FragmentActivity {
         //TODO we want two fragments with layouts : fragment_one, fragment_two.
 
         final FragmentOne fragmentOne = FragmentOne.newInstance();
-        final FragmentOne fragmentTwo = FragmentOne.newInstance();
+        final FragmentTwo fragmentTwo = FragmentTwo.newInstance();
+        counterTextView = findViewById(R.id.counter_textview);
+
 
 
         //TODO set adapter to viewpager and handle fragment change inside
@@ -65,7 +67,7 @@ public class MainActivity extends FragmentActivity {
                     tab.setText(FragmentOne.TAB_NAME);
                 }
                 else {
-                    tab.setText(FragmentOne.TAB_NAME);
+                    tab.setText(FragmentTwo.TAB_NAME);
                 }
             }
         });
@@ -73,4 +75,15 @@ public class MainActivity extends FragmentActivity {
     }
 
     //TODO : increment and decrement counter, use the already provided String ressource (see strings.xml)
+    @Override
+    public void incrementCounter() {
+        currentCounter++;
+        counterTextView.setText(getString(R.string.counter_text, currentCounter));
+    }
+
+    @Override
+    public void decrementCounter() {
+        currentCounter--;
+        counterTextView.setText(getString(R.string.counter_text, currentCounter));
+    }
 }
